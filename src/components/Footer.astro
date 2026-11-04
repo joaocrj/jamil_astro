@@ -1,0 +1,105 @@
+---
+// Footer.astro - Rodapé com Identidade Visual e Diagramação Otimizada
+const currentYear = new Date().getFullYear();
+---
+<style>
+  #main-footer {
+    background-color: #2faad6 !important;
+  }
+  #footer-bottom {
+    background-color: #2faad6 !important;
+    padding: 15px 0 !important;
+  }
+  #footer-info,
+  #footer-info a {
+    color: #ffffff !important;
+  }
+  #footer-bottom .et-social-icon a {
+    color: #ffffff !important;
+  }
+
+  @media (max-width: 767px) {
+    #footer-bottom {
+      padding: 22px 12px !important;
+    }
+    #footer-bottom .container.clearfix {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      width: 100% !important;
+      max-width: 100% !important;
+      padding: 0 10px !important;
+    }
+    .et-social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 0 !important;
+      padding: 0 !important;
+      float: none !important;
+    }
+    .et-social-icons li {
+      margin: 0 !important;
+      display: inline-block;
+    }
+    .et-social-icons li a {
+      font-size: 22px !important;
+      display: inline-block;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .et-social-icons li a:hover {
+      transform: scale(1.15);
+      opacity: 0.9;
+    }
+    #footer-info {
+      font-size: 14px !important;
+      line-height: 1.7em !important;
+      text-align: center !important;
+      float: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    #footer-info .footer-sep {
+      display: none;
+    }
+    #footer-info .footer-line {
+      display: block;
+      margin: 3px 0;
+    }
+    #footer-info a {
+      text-decoration: none;
+      color: #ffffff !important;
+      font-weight: 500;
+    }
+    #footer-info a:hover {
+      text-decoration: underline;
+    }
+  }
+</style>
+<footer id="main-footer">
+  <div id="footer-bottom">
+    <div class="container clearfix">
+      <ul class="et-social-icons">
+        <li class="et-social-icon et-social-facebook">
+          <a href="https://www.facebook.com/jamildentista" class="icon" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <span>Facebook</span>
+          </a>
+        </li>
+        <li class="et-social-icon et-social-instagram">
+          <a href="https://www.instagram.com/jamildentista/" class="icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <span>Instagram</span>
+          </a>
+        </li>
+      </ul>
+      <div id="footer-info">
+        <span class="footer-line">&copy; {currentYear} Dr. Jamil Alberto Mizrahi</span>
+        <span class="footer-sep"> | </span>
+        <span class="footer-line"><a href="tel:+5521986631972" title="Ligue para Dr. Jamil">(21) 98663-1972</a></span>
+        <span class="footer-sep"> | </span>
+        <span class="footer-line">Rua Visconde de Pirajá, 330 / 1207 – Ipanema</span>
+      </div>
+    </div>
+  </div>
+</footer>

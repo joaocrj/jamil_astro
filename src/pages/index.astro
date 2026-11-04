@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import HeroSlider from '../components/HeroSlider.astro';
+import HighlightsSection from '../components/HighlightsSection.astro';
+import TreatmentsSection from '../components/TreatmentsSection.astro';
+import TreatmentsMobile from '../components/TreatmentsMobile.astro';
+import ScannerTechSection from '../components/ScannerTechSection.astro';
+import BioSection from '../components/BioSection.astro';
+import LocationSection from '../components/LocationSection.astro';
+import ScheduleCTASection from '../components/ScheduleCTASection.astro';
+import ContactSection from '../components/ContactSection.astro';
+import FooterBanner from '../components/FooterBanner.astro';
+import Footer from '../components/Footer.astro';
+import ContactModal from '../components/ContactModal.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+---
+
+<Layout
+  title="Dr. Jamil Alberto Mizrahi - Dentista em Ipanema - RJ"
+  description="Clínica odontológica Dr. Jamil Alberto Mizrahi, em Ipanema. Especializado em implantes e próteses dentárias com Cirurgia Guiada, Periodontia e Endodontia."
+  image="/images/jamil-blue.webp"
+  canonicalURL="https://jamildentista.com.br/"
+>
+  <Header slot="header" />
+
+  <HeroSlider />
+  <HighlightsSection />
+  <TreatmentsSection />
+  <TreatmentsMobile />
+  <ScannerTechSection />
+  <BioSection />
+  <LocationSection />
+  <ScheduleCTASection />
+  <ContactSection />
+  <FooterBanner />
+
+  <Footer slot="footer" />
+
+  <Fragment slot="modals">
+    <ContactModal />
+    <WhatsAppButton />
+  </Fragment>
+</Layout>
+
