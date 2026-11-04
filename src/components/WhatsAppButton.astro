@@ -1,18 +1,141 @@
 ---
 // WhatsAppButton.astro - Botão Flutuante do WhatsApp
 ---
-<div class="joinchat joinchat--right joinchat--btn" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+<aside
+  class="whatsapp-fixed-wrapper"
+  aria-label="Atendimento via WhatsApp"
+>
   <a
-    href="https://wa.me/5521986631972?text=Ol%C3%A1%20Jamil%20Dentista%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20tratamento%20dent%C3%A1rio"
+    href="https://wa.me/5521986631972?text=Ol%C3%A1%20Dr.%20Jamil%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20tratamentos."
     target="_blank"
     rel="noopener noreferrer"
-    class="joinchat__button"
-    role="button"
-    aria-label="Fale Conosco pelo WhatsApp"
-    style="display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 50%; background-color: #25d366; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.2s;"
+    class="whatsapp-float-btn"
+    aria-label="Fale conosco no WhatsApp pelo (21) 98663-1972"
+    title="Fale conosco no WhatsApp"
   >
-    <svg width="34" height="34" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.82L4.43 19.64L5.26 16.6L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.56 14.37C16.31 14.24 15.09 13.64 14.86 13.56C14.63 13.47 14.47 13.43 14.3 13.68C14.14 13.93 13.67 14.49 13.52 14.65C13.38 14.82 13.23 14.84 12.98 14.72C12.73 14.59 11.93 14.33 10.98 13.49C10.25 12.83 9.75 12.02 9.61 11.77C9.46 11.52 9.59 11.39 9.72 11.26C9.83 11.15 9.97 10.97 10.09 10.83C10.21 10.68 10.26 10.58 10.34 10.41C10.42 10.25 10.38 10.1 10.32 9.98C10.26 9.85 9.76 8.63 9.56 8.12C9.36 7.63 9.15 7.7 8.99 7.69C8.84 7.68 8.67 7.68 8.5 7.68C8.34 7.68 8.07 7.74 7.84 7.99C7.62 8.24 6.99 8.83 6.99 10.03C6.99 11.23 7.86 12.39 7.99 12.56C8.11 12.72 9.71 15.19 12.16 16.25C12.74 16.5 13.2 16.65 13.55 16.76C14.14 16.95 14.67 16.92 15.1 16.86C15.57 16.79 16.56 16.26 16.76 15.69C16.97 15.11 16.97 14.62 16.91 14.51C16.84 14.41 16.81 14.49 16.56 14.37Z" />
-    </svg>
+    <span class="whatsapp-tooltip">Fale Conosco</span>
+    <img
+      src="/images/whatsapp.png"
+      alt="WhatsApp Dr. Jamil Alberto Mizrahi"
+      width="60"
+      height="60"
+      loading="eager"
+      decoding="async"
+      class="whatsapp-icon-img"
+    />
   </a>
-</div>
+</aside>
+
+<style>
+  .whatsapp-fixed-wrapper {
+    position: fixed;
+    bottom: 26px;
+    right: 26px;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+  }
+
+  .whatsapp-float-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .whatsapp-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* Tooltip flutuante suave no desktop */
+  .whatsapp-tooltip {
+    position: absolute;
+    right: calc(100% + 12px);
+    background-color: #1f2937;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    padding: 8px 14px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .whatsapp-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #1f2937;
+  }
+
+  /* Hover & Focus states */
+  .whatsapp-float-btn:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.35));
+  }
+
+  .whatsapp-float-btn:hover .whatsapp-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .whatsapp-float-btn:active {
+    transform: scale(0.94);
+  }
+
+  /* Responsividade Mobile */
+  @media (max-width: 768px) {
+    .whatsapp-fixed-wrapper {
+      bottom: 20px;
+      right: 20px;
+    }
+
+    .whatsapp-float-btn {
+      width: 54px;
+      height: 54px;
+    }
+
+    .whatsapp-tooltip {
+      display: none; /* Em telas touch o tooltip não atrapalha */
+    }
+  }
+
+  /* Em telas muito pequenas */
+  @media (max-width: 380px) {
+    .whatsapp-fixed-wrapper {
+      bottom: 16px;
+      right: 16px;
+    }
+
+    .whatsapp-float-btn {
+      width: 50px;
+      height: 50px;
+    }
+  }
+</style>
