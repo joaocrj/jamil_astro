@@ -204,19 +204,85 @@ const schemaOrg = {
         box-sizing: border-box;
       }
       #popipa-overlay.active {
-        display: flex;
+        display: flex !important;
       }
       #popipa-modal-card {
         background: #ffffff;
-        border-radius: 12px;
-        max-width: 520px;
-        width: 100%;
-        max-height: 90vh;
+        border-radius: 16px;
+        max-width: 460px;
+        width: 90%;
+        max-height: 92vh;
         overflow-y: auto;
         position: relative;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-        padding: 24px;
+        padding: 24px 20px 20px 20px;
         animation: popipaFadeIn 0.3s ease-out forwards;
+        box-sizing: border-box;
+      }
+      #popipa-modal-card #popipa,
+      #popipa-overlay.active #popipa {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+      }
+      #popipa .et_pb_row {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto 10px auto !important;
+        padding: 0 !important;
+      }
+      #popipa .et_pb_image_17 {
+        text-align: center !important;
+        margin-bottom: 8px !important;
+      }
+      #popipa .et_pb_image_17 img {
+        max-width: 320px !important;
+        width: 100% !important;
+        height: auto !important;
+        display: inline-block !important;
+      }
+      #popipa .et_pb_text_24 h1 {
+        font-size: 26px !important;
+        line-height: 1.25 !important;
+        margin: 0 0 6px 0 !important;
+        color: #0c71c3 !important;
+        font-weight: 700 !important;
+      }
+      #popipa .et_pb_text_24 p {
+        font-size: 15px !important;
+        line-height: 1.4 !important;
+        margin: 0 0 12px 0 !important;
+        color: #4b5563 !important;
+      }
+      #popipa .et_pb_button_2 {
+        display: inline-block !important;
+        background-color: #25d366 !important;
+        color: #ffffff !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        padding: 12px 32px !important;
+        border-radius: 30px !important;
+        text-decoration: none !important;
+        box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4) !important;
+        transition: transform 0.2s, box-shadow 0.2s !important;
+      }
+      #popipa .et_pb_button_2:hover {
+        transform: scale(1.04) !important;
+        box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5) !important;
+      }
+      #popipa .et_pb_text_25 h2 {
+        font-size: 16px !important;
+        color: #1e293b !important;
+        margin: 10px 0 2px 0 !important;
+      }
+      #popipa .et_pb_text_26 h2 {
+        font-size: 14px !important;
+        color: #64748b !important;
+        margin: 0 !important;
+        font-weight: 500 !important;
       }
       @keyframes popipaFadeIn {
         from {
@@ -442,6 +508,11 @@ const schemaOrg = {
             document.body.style.overflow = "";
           }
         }
+
+        // Abre automaticamente após a entrada no site (2.5 segundos)
+        setTimeout(function () {
+          openPopipaModal();
+        }, 2500);
 
         // Triggers de abertura do modal
         document.querySelectorAll('[data-open-modal="popipa"], a[href="#popipa"]').forEach((btn) => {
