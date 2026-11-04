@@ -472,34 +472,122 @@ const schemaOrg = {
           }
         });
 
-        // 4. Submissão Assíncrona do Formulário de Contato com Feedback
+        // 4. Máscara de Celular e Validações de Formulário
+        function formatCellPhone(val) {
+          const digits = val.replace(/\D/g, "").slice(0, 11);
+          if (!digits) return "";
+          if (digits.length <= 2) return "(" + digits;
+          if (digits.length <= 7) return "(" + digits.slice(0, 2) + ") " + digits.slice(2);
+          return "(" + digits.slice(0, 2) + ") " + digits.slice(2, 7) + " " + digits.slice(7);
+        }
+
+        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+        function isValidEmail(email) {
+          return emailRegex.test(String(email).trim());
+        }
+
         const contactForms = document.querySelectorAll(".wpcf7-form");
         contactForms.forEach((form) => {
-          form.addEventListener("submit", function (e) {
-            e.preventDefault();
+          const nomeInput = form.querySelector('input[name="seu-nome"]');
+          const emailInput = form.querySelector('input[name="seu-email"]');
+          const celInput = form.querySelector('input[name="seu-cel"]');
+          const acceptInput = form.querySelector('input[name="acceptance-10"]');
+          const submitBtn = form.querySelector('button[type="submit"]');
+          const responseBox = form.querySelector(".wpcf7-response-output");
 
-            const nomeInput = form.querySelector('input[name="seu-nome"]');
-            const emailInput = form.querySelector('input[name="seu-email"]');
-            const celInput = form.querySelector('input[name="seu-cel"]');
-            const acceptInput = form.querySelector('input[name="acceptance-10"]');
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const responseBox = form.querySelector(".wpcf7-response-output");
+          // Aplicação da Máscara de Celular: (XX) XXXXX XXXX
+          if (celInput) {
+            celInput.setAttribute("maxlength", "16");
+            celInput.addEventListener("input", function () {
+              this.value = formatCellPhone(this.value);
+              this.style.borderColor = "";
+            });
+            celInput.addEventListener("keydown", function (e) {
+              if (e.key === "Backspace") {
+                const val = this.value;
+                const start = this.selectionStart;
+                const end = this.selectionEnd;
+                if (start === end && (val[start - 1] === " " || val[start - 1] === ")")) {
+                  e.preventDefault();
+                  const before = val.slice(0, start - 1).replace(/\D/g, "");
+                  const after = val.slice(end).replace(/\D/g, "");
+                  const newDigits = before.slice(0, -1) + after;
+                  this.value = formatCellPhone(newDigits);
+                  const newPos = Math.max(0, start - 2);
+                  this.setSelectionRange(newPos, newPos);
+                }
+              }
+            });
+            celInput.addEventListener("blur", function () {
+              const digits = this.value.replace(/\D/g, "");
+              if (digits.length > 0 && digits.length < 10) {
+                this.style.borderColor = "#dc2626";
+                if (responseBox) {
+                  responseBox.innerText = "Por favor, informe o celular completo com DDD no formato (XX) XXXXX XXXX.";
+                  responseBox.style.display = "block";
+                  responseBox.style.color = "#dc2626";
+                  responseBox.style.borderColor = "#dc2626";
+                }
+              }
+            });
+          }
+
+          // Validação em Tempo Real no Campo de E-mail
+          if (emailInput) {
+            emailInput.addEventListener("input", function () {
+              if (this.value.trim() && !isValidEmail(this.value)) {
+                this.style.borderColor = "#dc2626";
+              } else {
+                this.style.borderColor = "";
+                if (responseBox && responseBox.style.color === "rgb(220, 38, 38)") {
+                  responseBox.style.display = "none";
+                }
+              }
+            });
+            emailInput.addEventListener("blur", function () {
+              if (this.value.trim() && !isValidEmail(this.value)) {
+                this.style.borderColor = "#dc2626";
+                if (responseBox) {
+                  responseBox.innerText = "Por favor, digite um e-mail válido (exemplo: seuemail@dominio.com).";
+                  responseBox.style.display = "block";
+                  responseBox.style.color = "#dc2626";
+                  responseBox.style.borderColor = "#dc2626";
+                }
+              }
+            });
+          }
+
+          // Submissão do Formulário
+          form.addEventListener("submit", async function (e) {
+            e.preventDefault();
 
             if (!nomeInput || !emailInput || !celInput) return;
 
-            if (!nomeInput.value.trim() || !emailInput.value.trim() || !celInput.value.trim()) {
+            const nomeVal = nomeInput.value.trim();
+            const emailVal = emailInput.value.trim();
+            const celVal = celInput.value.trim();
+            const celDigits = celVal.replace(/\D/g, "");
+
+            // 1. Validação de preenchimento
+            if (!nomeVal || !emailVal || !celVal) {
               if (responseBox) {
                 responseBox.innerText = "Por favor, preencha todos os campos obrigatórios.";
                 responseBox.style.display = "block";
                 responseBox.style.color = "#dc2626";
                 responseBox.style.borderColor = "#dc2626";
               }
+              if (!nomeVal) nomeInput.focus();
+              else if (!emailVal) emailInput.focus();
+              else celInput.focus();
               return;
             }
 
-            if (acceptInput && !acceptInput.checked) {
+            // 2. Validação estrita de formato de e-mail
+            if (!isValidEmail(emailVal)) {
+              emailInput.style.borderColor = "#dc2626";
+              emailInput.focus();
               if (responseBox) {
-                responseBox.innerText = "Por favor, aceite os termos para contato.";
+                responseBox.innerText = "Por favor, informe um endereço de e-mail válido (exemplo: seuemail@dominio.com).";
                 responseBox.style.display = "block";
                 responseBox.style.color = "#dc2626";
                 responseBox.style.borderColor = "#dc2626";
@@ -507,16 +595,44 @@ const schemaOrg = {
               return;
             }
 
+            // 3. Validação do Celular (mínimo DDD + 8 ou 9 dígitos)
+            if (celDigits.length < 10) {
+              celInput.style.borderColor = "#dc2626";
+              celInput.focus();
+              if (responseBox) {
+                responseBox.innerText = "Por favor, informe um número de celular completo com DDD no formato (XX) XXXXX XXXX.";
+                responseBox.style.display = "block";
+                responseBox.style.color = "#dc2626";
+                responseBox.style.borderColor = "#dc2626";
+              }
+              return;
+            }
+
+            // 4. Aceite de termos
+            if (acceptInput && !acceptInput.checked) {
+              if (responseBox) {
+                responseBox.innerText = "Por favor, aceite os termos para autorizar o contato.";
+                responseBox.style.display = "block";
+                responseBox.style.color = "#dc2626";
+                responseBox.style.borderColor = "#dc2626";
+              }
+              acceptInput.focus();
+              return;
+            }
+
             const formData = {
-              nome: nomeInput.value.trim(),
-              email: emailInput.value.trim(),
-              celular: celInput.value.trim(),
+              nome: nomeVal,
+              email: emailVal,
+              celular: celVal,
+              mensagem: "",
               utm_source: utmSource || "",
               utm_medium: utmMedium || "",
               utm_campaign: utmCampaign || "",
               utm_term: utmTerm || "",
               utm_content: utmContent || "",
-              origem: origem
+              origem: origem || "acesso direto",
+              projeto: "Jamil Dentista",
+              destinatarios: ["joaocrj@gmail.com", "jamildentista1000@gmail.com"]
             };
 
             const originalBtnText = submitBtn ? submitBtn.innerText : "ENVIAR";
@@ -531,40 +647,56 @@ const schemaOrg = {
               responseBox.style.borderColor = "#0284c7";
             }
 
-            // Webhook n8n para Jamil Dentista
-            fetch("https://webhook.joaocrj.com.br/webhook/joaocrj_form", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ ...formData, projeto: "Jamil Dentista" })
-            })
-              .then((res) => {
-                if (res.ok) {
-                  return res.json().catch(() => ({ status: "ok" }));
+            try {
+              // 1ª tentativa: endpoint serverless da API (/api/contato)
+              let sent = false;
+              try {
+                const apiRes = await fetch("/api/contato", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(formData)
+                });
+                if (apiRes.ok) {
+                  sent = true;
                 }
-                throw new Error("Falha no envio");
-              })
-              .then(() => {
-                if (responseBox) {
-                  responseBox.innerText = "Obrigado! Sua solicitação foi recebida. Entraremos em contato em breve.";
-                  responseBox.style.color = "#16a34a";
-                  responseBox.style.borderColor = "#16a34a";
+              } catch (e) {
+                // Fallback para webhook direto
+              }
+
+              // Se a API não respondeu, envia diretamente para o webhook n8n
+              if (!sent) {
+                const webhookRes = await fetch("https://webhook.joaocrj.com.br/webhook/jamil_form", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(formData)
+                });
+                if (!webhookRes.ok) {
+                  throw new Error("Falha no webhook: HTTP " + webhookRes.status);
                 }
-                form.reset();
-              })
-              .catch((err) => {
-                console.warn("Erro no envio:", err);
-                if (responseBox) {
-                  responseBox.innerText = "Agradecemos o contato! Caso prefira, fale diretamente conosco via WhatsApp pelo botão flutuante.";
-                  responseBox.style.color = "#2563eb";
-                  responseBox.style.borderColor = "#2563eb";
-                }
-              })
-              .finally(() => {
-                if (submitBtn) {
-                  submitBtn.disabled = false;
-                  submitBtn.innerText = originalBtnText;
-                }
-              });
+              }
+
+              if (responseBox) {
+                responseBox.innerText = "Obrigado! Sua mensagem foi enviada com sucesso. Entraremos em contato em breve.";
+                responseBox.style.color = "#16a34a";
+                responseBox.style.borderColor = "#16a34a";
+              }
+              form.reset();
+              nomeInput.style.borderColor = "";
+              emailInput.style.borderColor = "";
+              celInput.style.borderColor = "";
+            } catch (err) {
+              console.warn("Erro no envio:", err);
+              if (responseBox) {
+                responseBox.innerText = "Agradecemos o contato! Caso ocorra alguma instabilidade, fale diretamente conosco pelo botão de WhatsApp.";
+                responseBox.style.color = "#2563eb";
+                responseBox.style.borderColor = "#2563eb";
+              }
+            } finally {
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
+              }
+            }
           });
         });
       });
