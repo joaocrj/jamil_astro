@@ -116,6 +116,14 @@ const schemaOrg = {
     <!-- Schema.org JSON-LD -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaOrg)} />
 
+    <!-- Cloudflare Turnstile -->
+    <script
+      is:inline
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer
+    ></script>
+
     <!-- Preload Fonts & Core CSS -->
     <link rel="preload" href="/fonts/modules.woff" as="font" type="font/woff" crossorigin />
 

@@ -66,10 +66,6 @@
 									</span>
 								</p>
 
-								<p></p>
-								<div class="cf-turnstile" data-sitekey="0x4AAAAAAA6_GmtZrQ3PHhZe"></div>
-								<span class="wpcf7-form-control-wrap" data-name="c"><input size="40" maxlength="400" class="wpcf7-form-control wpcf7-text" aria-invalid="false" value="" type="text" name="c"></span>
-								<p></p>
 
 								<input class="wpcf7-form-control wpcf7-hidden" id="utm_source" value="" type="hidden" name="utm_source">
 								<input class="wpcf7-form-control wpcf7-hidden" id="utm_medium" value="" type="hidden" name="utm_medium">
@@ -88,7 +84,16 @@
 				</div>
 			</div>
 
-			<div class="et_pb_module et_pb_text et_pb_text_20 et_pb_text_align_left et_pb_bg_layout_light">
+			<!-- Cloudflare Turnstile -->
+			<div class="turnstile-wrapper">
+				<div
+					class="cf-turnstile"
+					data-sitekey="0x4AAAAAAF1EFGvYISJnLX8z"
+					data-theme="auto"
+					data-action="contato"
+				></div>
+			</div>
+						<div class="et_pb_module et_pb_text et_pb_text_20 et_pb_text_align_left et_pb_bg_layout_light">
 				<div class="et_pb_text_inner">
 					<p>Este verificador serve para garantir a nossa segurança e impedir que qualquer informação fique disponível para terceiros</p>
 				</div>
@@ -147,6 +152,13 @@
 	.contact-form-intro strong {
 		color: #222222;
 		font-weight: 700;
+	}
+
+	/* Cloudflare Turnstile Widget */
+	.turnstile-wrapper {
+		display: flex;
+		justify-content: center;
+		margin: 16px 0 10px 0;
 	}
 
 	/* Ocultar a imagem na versão mobile */
