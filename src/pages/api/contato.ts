@@ -2,11 +2,11 @@ export const prerender = false;
 
 import type { APIRoute } from 'astro';
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const data = await request.json();
 
-    const { nome, email, celular } = data;
+    const { nome, email, celular, turnstile_token } = data;
 
     // Validate required fields
     if (!nome || !email || !celular) {
@@ -23,6 +23,43 @@ export const POST: APIRoute = async ({ request }) => {
         JSON.stringify({ error: 'Endereço de e-mail inválido.' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
+    }
+
+    // Validação com Cloudflare Turnstile Siteverify (se Secret Key configurada no Cloudflare)
+    const runtimeEnv = (locals as any)?.runtime?.env || (globalThis as any).process?.env || {};
+    const turnstileSecret = runtimeEnv?.TURNSTILE_SECRET_KEY || runtimeEnv?.CF_TURNSTILE_SECRET_KEY;
+
+    if (turnstileSecret) {
+      if (!turnstile_token) {
+        return new Response(
+          JSON.stringify({ error: 'Validação de segurança não realizada. Por favor, marque o verificador.' }),
+          { status: 403, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+
+      const clientIp = request.headers.get('CF-Connecting-IP') || request.headers.get('x-forwarded-for') || '';
+      try {
+        const verifyRes = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            secret: turnstileSecret,
+            response: turnstile_token,
+            remoteip: clientIp
+          })
+        });
+
+        const outcome = await verifyRes.json() as { success: boolean; 'error-codes'?: string[] };
+        if (!outcome.success) {
+          console.warn('Falha na validação do Cloudflare Turnstile:', outcome);
+          return new Response(
+            JSON.stringify({ error: 'Falha na validação de segurança do Cloudflare Turnstile.' }),
+            { status: 403, headers: { 'Content-Type': 'application/json' } }
+          );
+        }
+      } catch (verifyErr) {
+        console.error('Erro na requisição ao siteverify do Turnstile:', verifyErr);
+      }
     }
 
     // Forward to n8n webhook

@@ -588,6 +588,15 @@ const schemaOrg = {
               return;
             }
 
+            // Captura do token do Cloudflare Turnstile
+            const turnstileInput = form.querySelector('[name="cf-turnstile-response"]') || document.querySelector('[name="cf-turnstile-response"]');
+            let turnstileToken = turnstileInput ? turnstileInput.value : "";
+            if (!turnstileToken && window.turnstile && typeof window.turnstile.getResponse === "function") {
+              try {
+                turnstileToken = window.turnstile.getResponse();
+              } catch (e) {}
+            }
+
             const formData = {
               nome: nomeVal,
               email: emailVal,
@@ -600,7 +609,8 @@ const schemaOrg = {
               utm_content: utmContent || "",
               origem: origem || "acesso direto",
               projeto: "Jamil Dentista",
-              destinatarios: ["joaocrj@gmail.com", "jamildentista1000@gmail.com"]
+              destinatarios: ["joaocrj@gmail.com", "jamildentista1000@gmail.com"],
+              turnstile_token: turnstileToken
             };
 
             const originalBtnText = submitBtn ? submitBtn.innerText : "ENVIAR";
@@ -649,6 +659,11 @@ const schemaOrg = {
                 responseBox.style.borderColor = "#16a34a";
               }
               form.reset();
+              if (window.turnstile && typeof window.turnstile.reset === "function") {
+                try {
+                  window.turnstile.reset();
+                } catch (tErr) {}
+              }
               nomeInput.style.borderColor = "";
               emailInput.style.borderColor = "";
               celInput.style.borderColor = "";
