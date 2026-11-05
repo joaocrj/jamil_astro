@@ -1,108 +1,268 @@
 ---
-// ContactModal.astro - Modal Pop-up #popipa Acessível
+// ContactModal.astro - Modal Pop-up #popipa Acessível e Responsivo
 ---
 <div id="popipa-overlay" role="dialog" aria-modal="true" aria-labelledby="popipa-title" aria-hidden="true">
   <div id="popipa-modal-card">
     <button type="button" class="popipa-close-btn popipa-close-trigger" aria-label="Fechar janela de contato">&times;</button>
-    <div id="popipa" class="et_pb_section et_pb_section_15 popup et_section_regular">
-				
-				
-				
-				
-				
-				
-				<div class="et_pb_row et_pb_row_20">
-				<div class="et_pb_column et_pb_column_4_4 et_pb_column_31  et_pb_css_mix_blend_mode_passthrough et-last-child">
-				
-				
-				
-				
-				<div class="et_pb_module et_pb_image et_pb_image_17">
-				
-				
-				
-				
-				<span class="et_pb_image_wrap "><img loading="eager" decoding="async" width="493" height="289" src="/images/jamil-banner-1.webp" alt="Jamil Dentista. Especialista em Implantes e Próteses Dentárias" title="Jamil Dentista. Especialista em Implantes e Próteses Dentárias" srcset="/images/jamil-banner-1.webp 493w, /images/jamil-banner-1-480x281.webp 480w" sizes="(min-width: 0px) and (max-width: 480px) 480px, (min-width: 481px) 493px, 100vw" class="wp-image-2024"></span>
-			</div>
-			</div>
-				
-				
-				
-				
-			</div><div class="et_pb_row et_pb_row_21">
-				<div class="et_pb_column et_pb_column_4_4 et_pb_column_32  et_pb_css_mix_blend_mode_passthrough et-last-child">
-				
-				
-				
-				
-				<div class="et_pb_module et_pb_text et_pb_text_24  et_pb_text_align_left et_pb_bg_layout_light">
-				
-				
-				
-				
-				<div class="et_pb_text_inner"><h1 style="text-align: center;">Agende já sua consulta</h1>
-<p style="text-align: center;">Estamos em <strong>Ipanema</strong> próximos ao <strong>Metrô</strong> da Praça Nossa Senhora da Paz</p></div>
-			</div>
-			</div>
-				
-				
-				
-				
-			</div><div class="et_pb_row et_pb_row_22">
-				<div class="et_pb_column et_pb_column_4_4 et_pb_column_33  et_pb_css_mix_blend_mode_passthrough et-last-child">
-				
-				
-				
-				
-				<div class="et_pb_button_module_wrapper et_pb_button_2_wrapper et_pb_button_alignment_center et_pb_module ">
-				<a class="et_pb_button et_pb_button_2 et_pb_bg_layout_dark" href="https://wa.me/5521986631972?text=Ol%C3%A1%20Dr.%20Jamil%2C%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener">WhatsApp</a>
-			</div>
-			</div>
-				
-				
-				
-				
-			</div><div class="et_pb_row et_pb_row_23">
-				<div class="et_pb_column et_pb_column_4_4 et_pb_column_34  et_pb_css_mix_blend_mode_passthrough et-last-child">
-				
-				
-				
-				
-				<div class="et_pb_with_border et_pb_module et_pb_text et_pb_text_25  et_pb_text_align_left et_pb_bg_layout_light">
-				
-				
-				
-				
-				<div class="et_pb_text_inner"><h2 style="text-align: center;"><strong>Consultório Particular</strong></h2></div>
-			</div>
-			</div>
-				
-				
-				
-				
-			</div><div class="et_pb_row et_pb_row_24">
-				<div class="et_pb_column et_pb_column_4_4 et_pb_column_35  et_pb_css_mix_blend_mode_passthrough et-last-child">
-				
-				
-				
-				
-				<div class="et_pb_module et_pb_text et_pb_text_26  et_pb_text_align_left et_pb_bg_layout_light">
-				
-				
-				
-				
-				<div class="et_pb_text_inner"><h2 style="text-align: center;">Não atendemos Planos de Saúde</h2></div>
-			</div>
-			</div>
-				
-				
-				
-				
-			</div>
-				
-				
-			</div>		</div>
-	</div>
-						</div>
+    
+    <div id="popipa" class="popipa-content">
+      <!-- Imagem do Topo -->
+      <div class="popipa-banner">
+        <img
+          src="/images/jamil-banner-1.webp"
+          alt="Jamil Dentista - Implantes e Próteses Dentárias"
+          width="493"
+          height="289"
+          loading="eager"
+          decoding="async"
+          class="popipa-banner-img"
+        />
+      </div>
+
+      <!-- Título e Subtítulo -->
+      <h2 id="popipa-title" class="popipa-title">AGENDE JÁ SUA CONSULTA</h2>
+      
+      <p class="popipa-subtitle">
+        Estamos em <strong>Ipanema</strong> próximos ao <strong>Metrô</strong> da Praça Nossa Senhora da Paz
+      </p>
+
+      <!-- Botão WhatsApp -->
+      <div class="popipa-btn-wrap">
+        <a
+          class="popipa-whatsapp-btn"
+          href="https://wa.me/5521986631972?text=Ol%C3%A1%20Dr.%20Jamil%2C%20gostaria%20de%20agendar%20uma%20consulta."
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          WhatsApp
+        </a>
+      </div>
+
+      <!-- Faixa Consultório Particular -->
+      <div class="popipa-particular-box">
+        <span>Consultório Particular</span>
+      </div>
+
+      <!-- Aviso Planos de Saúde -->
+      <p class="popipa-warning">NÃO ATENDEMOS PLANOS DE SAÚDE</p>
+    </div>
   </div>
 </div>
+
+<style>
+  #popipa-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(4px);
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  #popipa-overlay.active {
+    display: flex !important;
+  }
+
+  #popipa-modal-card {
+    background: #ffffff;
+    border-radius: 16px;
+    max-width: 440px;
+    width: 100%;
+    max-height: 94vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    padding: 24px 20px 20px 20px;
+    animation: popipaFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  @keyframes popipaFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(24px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .popipa-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: #f1f5f9;
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #475569;
+    transition: all 0.2s ease;
+    z-index: 20;
+  }
+
+  .popipa-close-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+    transform: scale(1.08);
+  }
+
+  .popipa-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .popipa-banner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+
+  .popipa-banner-img {
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .popipa-title {
+    font-family: 'Montserrat', Helvetica, Arial, Lucida, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0c71c3;
+    line-height: 1.25;
+    margin: 4px 0 10px 0;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(12, 113, 195, 0.18);
+    letter-spacing: 0.5px;
+  }
+
+  .popipa-subtitle {
+    font-family: 'Lato', Helvetica, Arial, Lucida, sans-serif;
+    font-size: 15.5px;
+    line-height: 1.45;
+    color: #555555;
+    margin: 0 0 16px 0;
+    padding: 0 8px;
+    font-weight: 300;
+  }
+
+  .popipa-subtitle strong {
+    font-weight: 700;
+    color: #222222;
+  }
+
+  .popipa-btn-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  .popipa-whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #25d366;
+    color: #ffffff !important;
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    padding: 10px 36px;
+    border-radius: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    user-select: none;
+  }
+
+  .popipa-whatsapp-btn:hover {
+    background-color: #20ba59;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.5);
+  }
+
+  .popipa-whatsapp-btn:active {
+    transform: translateY(0);
+  }
+
+  .popipa-particular-box {
+    width: 90%;
+    max-width: 360px;
+    background: linear-gradient(180deg, #5097d3 0%, #2072b8 100%);
+    color: #ffffff;
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    font-size: 16.5px;
+    font-weight: 700;
+    padding: 9px 18px;
+    border-radius: 8px;
+    margin: 0 auto 12px auto;
+    box-shadow: 0 3px 8px rgba(32, 114, 184, 0.3);
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
+
+  .popipa-warning {
+    font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #4b5563;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin: 0 0 6px 0;
+  }
+
+  @media (max-width: 480px) {
+    #popipa-modal-card {
+      padding: 20px 16px 16px 16px;
+      max-width: 92%;
+    }
+
+    .popipa-banner-img {
+      max-width: 280px;
+    }
+
+    .popipa-title {
+      font-size: 21px;
+    }
+
+    .popipa-subtitle {
+      font-size: 14.5px;
+    }
+
+    .popipa-whatsapp-btn {
+      width: 100%;
+      max-width: 260px;
+      padding: 10px 20px;
+    }
+
+    .popipa-particular-box {
+      width: 100%;
+      font-size: 15.5px;
+    }
+
+    .popipa-warning {
+      font-size: 12.5px;
+    }
+  }
+</style>

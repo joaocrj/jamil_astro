@@ -187,140 +187,9 @@ const schemaOrg = {
           display: block !important;
         }
       }
-      /* Modal Popup #popipa Overlay */
-      #popipa-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.75);
-        backdrop-filter: blur(4px);
-        z-index: 999999;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        box-sizing: border-box;
-      }
-      #popipa-overlay.active {
-        display: flex !important;
-      }
-      #popipa-modal-card {
-        background: #ffffff;
-        border-radius: 16px;
-        max-width: 460px;
-        width: 90%;
-        max-height: 92vh;
-        overflow-y: auto;
-        position: relative;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-        padding: 24px 20px 20px 20px;
-        animation: popipaFadeIn 0.3s ease-out forwards;
-        box-sizing: border-box;
-      }
-      #popipa-modal-card #popipa,
-      #popipa-overlay.active #popipa {
-        display: block !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: transparent !important;
-      }
-      #popipa .et_pb_row {
-        width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 auto 10px auto !important;
-        padding: 0 !important;
-      }
-      #popipa .et_pb_image_17 {
-        text-align: center !important;
-        margin-bottom: 8px !important;
-      }
-      #popipa .et_pb_image_17 img {
-        max-width: 320px !important;
-        width: 100% !important;
-        height: auto !important;
-        display: inline-block !important;
-      }
-      #popipa .et_pb_text_24 h1 {
-        font-size: 26px !important;
-        line-height: 1.25 !important;
-        margin: 0 0 6px 0 !important;
-        color: #0c71c3 !important;
-        font-weight: 700 !important;
-      }
-      #popipa .et_pb_text_24 p {
-        font-size: 15px !important;
-        line-height: 1.4 !important;
-        margin: 0 0 12px 0 !important;
-        color: #4b5563 !important;
-      }
-      #popipa .et_pb_button_2 {
-        display: inline-block !important;
-        background-color: #25d366 !important;
-        color: #ffffff !important;
-        font-size: 18px !important;
-        font-weight: 700 !important;
-        padding: 12px 32px !important;
-        border-radius: 30px !important;
-        text-decoration: none !important;
-        box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4) !important;
-        transition: transform 0.2s, box-shadow 0.2s !important;
-      }
-      #popipa .et_pb_button_2:hover {
-        transform: scale(1.04) !important;
-        box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5) !important;
-      }
-      #popipa .et_pb_text_25 h2 {
-        font-size: 16px !important;
-        color: #1e293b !important;
-        margin: 10px 0 2px 0 !important;
-      }
-      #popipa .et_pb_text_26 h2 {
-        font-size: 14px !important;
-        color: #64748b !important;
-        margin: 0 !important;
-        font-weight: 500 !important;
-      }
-      @keyframes popipaFadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(20px) scale(0.96);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0) scale(1);
-        }
-      }
-      .popipa-close-btn {
-        position: absolute;
-        top: 12px;
-        right: 14px;
-        background: #f1f5f9;
-        border: none;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        font-size: 20px;
-        font-weight: bold;
-        line-height: 1;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #334155;
-        transition: all 0.2s ease;
-        z-index: 10;
-      }
-      .popipa-close-btn:hover {
-        background: #e2e8f0;
-        color: #0f172a;
-      }
     </style>
   </head>
-  <body class="home wp-singular page-template-default page page-id-40 wp-theme-Divi et-tb-has-template et-tb-has-header et_button_no_icon et_button_custom_icon et_pb_button_helper_class et_pb_footer_columns1 et_cover_background et_pb_gutter linux et_pb_gutters3 et_pb_pagebuilder_layout et_smooth_scroll et_no_sidebar et_divi_theme et-db">
+  <body class="home wp-singular page-template-default page page-id-40 wp-theme-Divi et-tb-has-template et-tb-has-header et_button_no_icon et_button_custom_icon et_pb_button_helper_class et_pb_footer_columns1 et_cover_background et_pb_gutter linux et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db">
     <div id="page-container">
       <div id="et-boc" class="et-boc">
         <slot name="header" />
@@ -391,7 +260,6 @@ const schemaOrg = {
     </script>
     <script is:inline src="/js/front.min.js"></script>
     <script is:inline src="/js/scripts.min.js"></script>
-    <script is:inline src="/js/smoothscroll.js"></script>
     <script is:inline src="/js/jquery.fitvids.js"></script>
     <script is:inline src="/js/frontend-bundle.min.js"></script>
     <script is:inline src="/js/joinchat.min.js"></script>
@@ -492,9 +360,17 @@ const schemaOrg = {
         // 3. Modal Popup #popipa Handlers
         const popipaOverlay = document.getElementById("popipa-overlay");
         const closePopipaButtons = document.querySelectorAll(".popipa-close-trigger");
+        let modalTriggered = false;
+        let autoModalTimer = null;
 
         function openPopipaModal() {
-          if (popipaOverlay) {
+          if (popipaOverlay && !modalTriggered) {
+            modalTriggered = true;
+            if (autoModalTimer) {
+              clearTimeout(autoModalTimer);
+              autoModalTimer = null;
+            }
+            window.removeEventListener("scroll", handleScrollTrigger);
             popipaOverlay.classList.add("active");
             popipaOverlay.setAttribute("aria-hidden", "false");
             document.body.style.overflow = "hidden";
@@ -509,10 +385,23 @@ const schemaOrg = {
           }
         }
 
-        // Abre automaticamente após a entrada no site (2.5 segundos)
-        setTimeout(function () {
+        // Gatilho por Scroll: ultrapassar metade da página (50%)
+        function handleScrollTrigger() {
+          if (modalTriggered) return;
+          const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+          if (scrollable > 0) {
+            const scrollRatio = window.scrollY / scrollable;
+            if (scrollRatio >= 0.5) {
+              openPopipaModal();
+            }
+          }
+        }
+        window.addEventListener("scroll", handleScrollTrigger, { passive: true });
+
+        // Gatilho por Tempo: 8 segundos após a entrada no site
+        autoModalTimer = setTimeout(function () {
           openPopipaModal();
-        }, 2500);
+        }, 8000);
 
         // Triggers de abertura do modal
         document.querySelectorAll('[data-open-modal="popipa"], a[href="#popipa"]').forEach((btn) => {
