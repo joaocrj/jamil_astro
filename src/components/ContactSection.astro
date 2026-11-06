@@ -22,7 +22,7 @@
 		<div class="et_pb_column et_pb_column_1_2 et_pb_column_27 et_pb_css_mix_blend_mode_passthrough et-last-child">
 			<div class="et_pb_module dsm_contact_form_7 dsm_contact_form_7_0">
 				<div class="et_pb_module_inner">
-					<div class="dsm_contact_form_7_btn_icon" data-dsm-btn-icon="">
+					<div class="dsm_contact_form_7_btn_icon" data-dsm-btn-icon="">
 						<div class="wpcf7 no-js" id="wpcf7-f1795-p40-o1" lang="en-US" dir="ltr" data-wpcf7-id="1795">
 							<div class="screen-reader-response"><p role="status" aria-live="polite" aria-atomic="true"></p> <ul></ul></div>
 							<form action="/#wpcf7-f1795-p40-o1" method="post" class="wpcf7-form init" aria-label="Contact form" novalidate="novalidate" data-status="init">
@@ -66,6 +66,15 @@
 									</span>
 								</p>
 
+								<!-- Cloudflare Turnstile — DENTRO do <form> para injeção automática do cf-turnstile-response -->
+								<div class="turnstile-wrapper">
+									<div
+										class="cf-turnstile"
+										data-sitekey="0x4AAAAAAF1EFGvYISJnLX8z"
+										data-theme="auto"
+										data-action="contato"
+									></div>
+								</div>
 
 								<input class="wpcf7-form-control wpcf7-hidden" id="utm_source" value="" type="hidden" name="utm_source">
 								<input class="wpcf7-form-control wpcf7-hidden" id="utm_medium" value="" type="hidden" name="utm_medium">
@@ -84,16 +93,8 @@
 				</div>
 			</div>
 
-			<!-- Cloudflare Turnstile -->
-			<div class="turnstile-wrapper">
-				<div
-					class="cf-turnstile"
-					data-sitekey="0x4AAAAAAF1EFGvYISJnLX8z"
-					data-theme="auto"
-					data-action="contato"
-				></div>
-			</div>
-						<div class="et_pb_module et_pb_text et_pb_text_20 et_pb_text_align_left et_pb_bg_layout_light">
+			<!-- Texto de segurança (fora do form, abaixo do Turnstile) -->
+			<div class="et_pb_module et_pb_text et_pb_text_20 et_pb_text_align_left et_pb_bg_layout_light">
 				<div class="et_pb_text_inner">
 					<p>Este verificador serve para garantir a nossa segurança e impedir que qualquer informação fique disponível para terceiros</p>
 				</div>
