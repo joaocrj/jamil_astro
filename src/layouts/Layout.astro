@@ -4,13 +4,19 @@ interface Props {
   description?: string;
   image?: string;
   canonicalURL?: string;
+  bodyClass?: string;
+  articleId?: string;
+  articleClass?: string;
 }
 
 const {
   title = "Dr. Jamil Alberto Mizrahi - Dentista em Ipanema - RJ",
   description = "Clínica odontológica Dr. Jamil Alberto Mizrahi, em Ipanema. Especializado em implantes e próteses dentárias com Cirurgia Guiada, Periodontia e Endodontia.",
   image = "/images/jamil-blue.webp",
-  canonicalURL = "https://jamildentista.com.br/"
+  canonicalURL = "https://jamildentista.com.br/",
+  bodyClass = "home wp-singular page-template-default page page-id-40 wp-theme-Divi et-tb-has-template et-tb-has-header et_button_no_icon et_button_custom_icon et_pb_button_helper_class et_pb_footer_columns1 et_cover_background et_pb_gutter linux et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db",
+  articleId = "post-40",
+  articleClass = "post-40 page type-page status-publish hentry"
 } = Astro.props;
 
 const siteUrl = "https://jamildentista.com.br";
@@ -70,7 +76,7 @@ const schemaOrg = {
     },
     {
       "@type": "WebPage",
-      "@id": "https://jamildentista.com.br/#webpage",
+      "@id": `${canonicalURL}#webpage`,
       "url": canonicalURL,
       "name": title,
       "description": description,
@@ -197,12 +203,12 @@ const schemaOrg = {
       }
     </style>
   </head>
-  <body class="home wp-singular page-template-default page page-id-40 wp-theme-Divi et-tb-has-template et-tb-has-header et_button_no_icon et_button_custom_icon et_pb_button_helper_class et_pb_footer_columns1 et_cover_background et_pb_gutter linux et_pb_gutters3 et_pb_pagebuilder_layout et_no_sidebar et_divi_theme et-db">
+  <body class={bodyClass}>
     <div id="page-container">
       <div id="et-boc" class="et-boc">
         <slot name="header" />
         <main id="main-content">
-          <article id="post-40" class="post-40 page type-page status-publish hentry">
+          <article id={articleId} class={articleClass}>
             <div class="entry-content">
               <div class="et-l et-l--body">
                 <div class="et_builder_inner_content et_pb_gutters3">

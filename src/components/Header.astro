@@ -1,5 +1,6 @@
 ---
 // Header.astro - Topo Institucional e Menus de Navegação
+const sectionHref = (anchor: string) => `${Astro.url.pathname === '/' ? '' : '/'}#${anchor}`;
 ---
 <header class="et-l et-l--header">
 			<div class="et_builder_inner_content et_pb_gutters3">
@@ -29,11 +30,11 @@
 			</div>
 						<div class="et_pb_menu__wrap">
 							<div class="et_pb_menu__menu">
-								<nav class="et-menu-nav"><ul id="menu-menu-principal" class="et-menu nav"><li class="et_pb_menu_page_id-1810 menu-item menu-item-type-custom menu-item-object-custom menu-item-1810"><a href="#home">Home</a></li>
-<li class="et_pb_menu_page_id-86 menu-item menu-item-type-custom menu-item-object-custom menu-item-86"><a href="#tratamentos">Tratamentos</a></li>
-<li class="et_pb_menu_page_id-943 menu-item menu-item-type-custom menu-item-object-custom menu-item-943"><a href="#info">Especializações</a></li>
-<li class="et_pb_menu_page_id-888 menu-item menu-item-type-custom menu-item-object-custom menu-item-888"><a href="#localizacao">Localização</a></li>
-<li class="et_pb_menu_page_id-572 menu-item menu-item-type-custom menu-item-object-custom menu-item-572"><a href="#agende">Contato</a></li>
+								<nav class="et-menu-nav"><ul id="menu-menu-principal" class="et-menu nav"><li class="et_pb_menu_page_id-1810 menu-item menu-item-type-custom menu-item-object-custom menu-item-1810"><a href={sectionHref('home')}>Home</a></li>
+<li class="et_pb_menu_page_id-86 menu-item menu-item-type-custom menu-item-object-custom menu-item-86"><a href={sectionHref('tratamentos')}>Tratamentos</a></li>
+<li class="et_pb_menu_page_id-943 menu-item menu-item-type-custom menu-item-object-custom menu-item-943"><a href={sectionHref('info')}>Especializações</a></li>
+<li class="et_pb_menu_page_id-888 menu-item menu-item-type-custom menu-item-object-custom menu-item-888"><a href={sectionHref('localizacao')}>Localização</a></li>
+<li class="et_pb_menu_page_id-572 menu-item menu-item-type-custom menu-item-object-custom menu-item-572"><a href={sectionHref('agende')}>Contato</a></li>
 </ul></nav>
 							</div>
 							
@@ -87,10 +88,10 @@
 			</div>
 						<div class="et_pb_menu__wrap">
 							<div class="et_pb_menu__menu">
-								<nav class="et-menu-nav"><ul id="menu-menu-mobile" class="et-menu nav"><li id="menu-item-2136" class="et_pb_menu_page_id-2136 menu-item menu-item-type-custom menu-item-object-custom menu-item-2136"><a href="#HOME">HOME</a></li>
-<li id="menu-item-2137" class="et_pb_menu_page_id-2137 menu-item menu-item-type-custom menu-item-object-custom menu-item-2137"><a href="#tratamentosm">TRATAMENTOS</a></li>
-<li id="menu-item-2138" class="et_pb_menu_page_id-2138 menu-item menu-item-type-custom menu-item-object-custom menu-item-2138"><a href="#localizacaom">LOCALIZAÇÃO</a></li>
-<li id="menu-item-2139" class="et_pb_menu_page_id-2139 menu-item menu-item-type-custom menu-item-object-custom menu-item-2139"><a href="#agende">CONTATO</a></li>
+								<nav class="et-menu-nav"><ul id="menu-menu-mobile" class="et-menu nav"><li id="menu-item-2136" class="et_pb_menu_page_id-2136 menu-item menu-item-type-custom menu-item-object-custom menu-item-2136"><a href={sectionHref('HOME')}>HOME</a></li>
+<li id="menu-item-2137" class="et_pb_menu_page_id-2137 menu-item menu-item-type-custom menu-item-object-custom menu-item-2137"><a href={sectionHref('tratamentosm')}>TRATAMENTOS</a></li>
+<li id="menu-item-2138" class="et_pb_menu_page_id-2138 menu-item menu-item-type-custom menu-item-object-custom menu-item-2138"><a href={sectionHref('localizacaom')}>LOCALIZAÇÃO</a></li>
+<li id="menu-item-2139" class="et_pb_menu_page_id-2139 menu-item menu-item-type-custom menu-item-object-custom menu-item-2139"><a href={sectionHref('agende')}>CONTATO</a></li>
 </ul></nav>
 							</div>
 							
